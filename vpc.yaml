@@ -3,7 +3,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 
 Description: This templates creates VPC with public and privat subnets.
 
-Metadata:
+#Metadata:
   # template metadata # Use to group Parameters in the order that we want them to be in.
 
 
@@ -51,3 +51,32 @@ Parameters:
     MaxLength: '18'
     MinLength: '9'
     Type: String
+
+Resources:
+
+# Create VPC
+  myVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCIDR
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      InstanceTenancy: default
+      Tags:
+      - Key: Name
+        Value: Test VPC
+
+# Create Internet Gateway
+  myInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: Test IGW
+
+# Attached the IGW to the VPC
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref myVPC
+      InternetGatewayId: !Ref myInternetGateway
