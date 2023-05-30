@@ -80,3 +80,24 @@ Resources:
     Properties:
       VpcId: !Ref myVPC
       InternetGatewayId: !Ref myInternetGateway
+
+# Create the Public Subnets
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: !Ref PublicSubnet1CIDR
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      Tags:
+      - Key: Name
+        Value: Public Subnet AZ1
+  
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: !Ref PublicSubnet2CIDR
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      Tags:
+      - Key: Name
+        Value: Public Subnet AZ2 
