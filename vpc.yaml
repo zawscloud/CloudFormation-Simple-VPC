@@ -101,3 +101,33 @@ Resources:
       Tags:
       - Key: Name
         Value: Public Subnet AZ2 
+
+# Create Public Route Table
+  myPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref myVPC
+      Tags:
+      - Key: Name
+        Value: Public-RT 
+
+# Add Public Route to the Public Route Table
+  myRoute:
+    Type: AWS::EC2::Route
+    Properties:
+       RouteTableId: !Ref myPublicRouteTable 
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId: !Ref myInternetGateway
+
+# Associate the Public Subnets with the Public Route Table
+  myPublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref myPublicRouteTable
+      SubnetId: !Ref PublicSubnet1
+
+  myPublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref myPublicRouteTable
+      SubnetId: !Ref PublicSubnet2
