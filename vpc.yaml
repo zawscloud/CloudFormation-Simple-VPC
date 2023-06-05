@@ -131,3 +131,55 @@ Resources:
     Properties: 
       RouteTableId: !Ref myPublicRouteTable
       SubnetId: !Ref PublicSubnet2
+
+##########################################################################
+############ Create the Private Subnets ##################################
+##########################################################################
+
+# Create Private Subnet 1  App Tier
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: !Ref PrivateSubnet1CIDR
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value: Private Subnet 1  App Tier
+
+# Create Private Subnet 2 App Tier
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: !Ref PrivateSubnet2CIDR
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value: Private Subnet 2 App Tier
+
+# Create Private Subnet 1  Data Tier
+  PrivateSubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: !Ref PrivateSubnet3CIDR
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value: Private Subnet 1  Data Tier
+
+# Private Subnet 2  Data Tier
+  PrivateSubnet4:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: !Ref PrivateSubnet4CIDR
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value: Private Subnet 2  Data Tier
